@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jugador - Formulario</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css">
+	<style>
+					        /* Reset básico */
+					        * {
+					            margin: 0;
+					            padding: 0;
+					            box-sizing: border-box;
+					        }
+					
+					        body {
+					            font-family: Arial, sans-serif;
+					            display: flex;
+					            height: 100vh;
+					            background-image: url("https://images.unsplash.com/photo-1517927033932-b3d18e61fb3a?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8fA%3D%3D");
+					            background-size: cover;
+					            background-repeat: no-repeat;
+					            background-position: center;
+					        }
+					
+					        /* Barra lateral */
+					        .sidebar {
+					            width: 250px;
+					            background-color: #2c2c2c;
+					            color: white;
+					            display: flex;
+					            flex-direction: column;
+					            justify-content: space-between;
+					            padding: 20px;
+					        }
+					
+					        .sidebar-header {
+					            text-align: center;
+					        }
+					
+					        .user-avatar {
+					            width: 80px;
+					            height: 80px;
+					            border-radius: 50%;
+					            margin-bottom: 10px;
+					        }
+					
+					        .user-name {
+					            font-size: 25px;
+					            color: white;
+					            margin-bottom: 20px;
+					        }
+					
+					        /* Centrar el menú verticalmente */
+					        .sidebar-menu {
+					            flex-grow: 1;
+					            display: flex;
+					            align-items: center;
+					        }
+					
+					        .sidebar-menu ul {
+					            list-style: none;
+					            padding: 0;
+					            margin: 0;
+					            width: 100%;
+					        }
+					
+					        .sidebar-menu ul li {
+					            margin: 30px 0;
+					            text-align: center;
+					        }
+					
+					        .sidebar-menu ul li a {
+					            text-decoration: none;
+					            color: rgb(255, 255, 255);
+					            font-size: 20px;
+					            font-family: 'Poppins', sans-serif;
+					            transition: text-shadow 0.3s ease;
+					        }
+					
+					        .sidebar-menu ul li a:hover {
+					            text-shadow: 2px 2px 5px rgba(0, 123, 255, 0.7);
+					        }
+					
+					        .sidebar-menu ul li a:hover {
+					            color: #00bcd4;
+					        }
+					
+					        /* Contenido principal */
+					        .main-content {
+					            flex-grow: 1;
+					            overflow: auto;
+					            padding: 20px;
+					            display: flex;
+					            justify-content: center;
+					            align-items: center;
+					        }
+					
+					        .form-container {
+					            background-color: rgba(44, 44, 44, 0.7); /* Fondo oscuro para el formulario */
+					            padding: 30px;
+					            border-radius: 10px;
+					            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+					            width: 100%;
+					            max-width: 500px; /* Ancho máximo para el formulario */
+					        }
+					
+					        h1,
+					        h4 {
+					            color: rgb(255, 255, 255);
+					            text-align: center;
+					        }
+					
+					        label {
+					            color: rgb(255, 60, 60); /* Color blanco para las etiquetas */
+					        }
+					
+					        input {
+					            color: black; /* Color negro para el texto de los inputs */
+					        }
+					
+					        .btn-outline-primary {
+					            border-color: #a23030;
+					            color: #ffffff;
+					            font-size: 1rem;
+					            font-weight: bold;
+					            width: 100%;
+					            padding: 10px;
+					            border-radius: 5px;
+					            display: block;
+					            margin-bottom: 15px;
+					            background-color: transparent;
+					        }
+					
+					        .btn-outline-primary:hover {
+					            background-color: #000;
+					            color: #ffffff;
+					        }
+					
+					        .btn-outline-success {
+					            border-color: #a23030;
+					            color: #ffffff;
+					            font-size: 1rem;
+					            font-weight: bold;
+					            width: 100%;
+					            padding: 10px;
+					            border-radius: 5px;
+					            display: block;
+					            background-color: transparent;
+					        }
+					
+					        .btn-outline-success:hover {
+					            background-color: #275797;
+					            color: #ffffff;
+					            border-color: #0400ff;
+					        }
+					
+					        .btn-info,
+					        .btn-danger {
+					            font-size: 14px;
+					            font-weight: bold;
+					        }
+					
+					        .btn-info {
+					            background-color: #0400ff;
+					            border-color: #0400ff;
+					            color: #ffffff;
+					        }
+					
+					        .btn-info:hover {
+					            background-color: #0080ff;
+					            border-color: #0080ff;
+					        }
+					
+					        .btn-danger {
+					            background-color: #dc3545;
+					            border-color: #dc3545;
+					            color: #ffffff;
+					        }
+					
+					        .btn-danger:hover {
+					            background-color: #c82333;
+					            border-color: #c82333;
+					        }
+					    </style>
+					</head>
+					
+					<body>
+					    <!-- Barra lateral -->
+					    <aside class="sidebar">
+					        <div class="sidebar-header">
+					            <h2>FUTBOL CLUBES</h2>
+					            <div class="user-info">
+					                <img src="https://media.istockphoto.com/id/610241662/es/foto/bal%C3%B3n-de-f%C3%BAtbol-aislado-sobre-el-fondo-blanco.jpg?s=612x612&w=0&k=20&c=m694Qtfj2li0GhXfMijPEKdKtnw52_kXZxPMbH9ZOXM="
+					                    alt="User Avatar" class="user-avatar">
+					                <p class="user-name">Danna Millan</p>
+					            </div>
+					        </div>
+					        <nav class="sidebar-menu">
+					            <ul>
+					                <li><a th:href="@{/asociaciones/}">Asociaciones</a></li>
+					                <li><a th:href="@{/entrenadores/}">Entrenadores</a></li>
+					                <li><a th:href="@{/competiciones/}">Competiciones</a></li>
+					                <li><a th:href="@{/clubes/}">Clubes</a></li>
+					                <li><a th:href="@{/jugadores/}">Jugadores</a></li>
+					            </ul>
+					        </nav>
+					    </aside>
+			
+			
+						<main class="main-content">
+						       <div class="form-container">
+            <h1>Jugador</h1>
+            <form th:action="@{/jugadores/save}" th:object="${jugador}" method="post" class="w-100">
+                <!-- Campo oculto para el ID del jugador -->
+                <input type="hidden" th:field="*{id}" />
+
+                <h4>Información del Jugador</h4>
+
+                <!-- Nombre del Jugador -->
+                <div class="form-group form-floating">
+                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre Jugador"
+                        th:field="*{nombre}" required />
+                    <label for="nombre">Nombre</label>
+                    <small class="form-text text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
+                </div>
+
+                <!-- Apellido del Jugador -->
+                <div class="form-group form-floating">
+                    <input type="text" class="form-control" id="apellido" name="apellido"
+                        placeholder="Apellido Jugador" th:field="*{apellido}" required />
+                    <label for="apellido">Apellido</label>
+                    <small class="form-text text-danger" th:if="${#fields.hasErrors('apellido')}"
+                        th:errors="*{apellido}"></small>
+                </div>
+
+                <!-- Número del Jugador -->
+                <div class="form-group form-floating">
+                    <input type="number" class="form-control" id="numero" name="numero" placeholder="Número"
+                        th:field="*{numero}" required />
+                    <label for="numero">Número</label>
+                    <small class="form-text text-danger" th:if="${#fields.hasErrors('numero')}"
+                        th:errors="*{numero}"></small>
+                </div>
+
+                <!-- Posición del Jugador -->
+                <div class="form-group form-floating">
+                    <input type="text" class="form-control" id="posicion" name="posicion" placeholder="Posición"
+                        th:field="*{posicion}" required />
+                    <label for="posicion">Posición</label>
+                    <small class="form-text text-danger" th:if="${#fields.hasErrors('posicion')}"
+                        th:errors="*{posicion}"></small>
+                </div>
+
+                <!-- Selección del Club -->
+                <div class="form-group form-floating">
+                    <select th:field="*{club}" class="form-select" required>
+                        <option value="" disabled selected>Seleccione un club</option>
+                        <option th:each="club : ${listaClubes}" th:text="${club.nombre}" th:value="${club.id}"></option>
+                    </select>
+                    <label for="club">Club</label>
+                    <small class="form-text text-danger" th:if="${#fields.hasErrors('club')}"
+                        th:errors="*{club}"></small>
+                </div>
+
+				<div class="d-flex mb-3">
+							              <input type="reset" class="btn btn-primary" value="Restablecer">
+							          </div>
+									<button type="submit" class="btn btn-outline-primary">Registrar Jugador</button>
+								 <a th:href="@{/jugadores/}" class="btn btn-outline-success">Volver a la lista de jugadores</a>
+            </form>
+        </main>
+
+        
+</body>
+
+</html>
